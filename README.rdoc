@@ -1,0 +1,17 @@
+= puxico - CLI tool for working with Puxing radio config files
+
+Author:: Iwakura Taro (mailto:taro@mail333.com)
+Copyright:: Copyright (c) 2017 by Iwakura Taro
+License:: Distributed under the 3-Clause BSD License, see LICENSE.txt
+
+Application currently supports Puxing PX-2R radio configs.
+Tool allows listing programmed channels.
+
+== Install
+
+Install:
+	gem install puxico
+
+
+:include:puxico.rdoc
+
