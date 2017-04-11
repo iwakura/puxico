@@ -17,12 +17,15 @@ flag [:f,:file]
 
 desc 'List defined channels'
 command [:list, :ls] do |c|
-  c.action do |global_options,options,args|
 
-    @config.chans.each_with_index do |ch, idx|
-      next if ch.undefined?
-      puts '%3d %-9s %5s' % [idx + 1, ch.freq.to_num, ch.clean_title]
-    end
+  prints = Puxico::ChanPrinter::KINDS
+  c.desc 'Output verbosity'
+  c.arg_name prints.join('|')
+  c.flag [:p, :print], :must_match => prints, :default_value => :normal
+
+  c.action do |global_options,options,args|
+    content = Puxico::ChanPrinter::run(@config.chans, options[:print])
+    puts content
   end
 end
 

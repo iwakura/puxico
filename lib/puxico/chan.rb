@@ -55,6 +55,10 @@ module Puxico
         title.clean
       end
 
+      def frequency
+        freq.to_num
+      end
+
       include Comparable
 
       def <=>(other)
