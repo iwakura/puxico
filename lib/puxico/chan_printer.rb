@@ -1,6 +1,9 @@
 module Puxico
   module ChanPrinter
-    KINDS = [:short, :long, :freqs, :complete]
+
+    def self.kinds
+      constants.collect {|k| k.to_s.downcase }.sort
+    end
 
     def self.run(chans, kind)
       pcn = kind.to_s.sub(/^\w/){|c| c.upcase }
@@ -23,6 +26,10 @@ module Puxico
 
       def content
         lines.join "\n"
+      end
+
+      def line(ch, idx)
+        '%-9s %5s' % [ch.frequency, ch.clean_title]
       end
     end
 

@@ -18,7 +18,7 @@ flag [:f,:file]
 desc 'List defined channels'
 command [:list, :ls] do |c|
 
-  prints = Puxico::ChanPrinter::KINDS
+  prints = Puxico::ChanPrinter::kinds
   c.desc 'Output verbosity'
   c.arg_name prints.join('|')
   c.flag [:p, :print], :must_match => prints, :default_value => :long
