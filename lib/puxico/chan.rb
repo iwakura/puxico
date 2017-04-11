@@ -59,6 +59,14 @@ module Puxico
         freq.to_num
       end
 
+      def power
+        settings.power? ? 'H' : 'L'
+      end
+
+      def band
+        settings.wide? ? 'W' : 'N'
+      end
+
       include Comparable
 
       def <=>(other)

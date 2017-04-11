@@ -15,6 +15,10 @@ class ChanPrinterTest < Test::Unit::TestCase
     Puxico::ChanPrinter::Normal.new(@conf.chans)
   end
 
+  def long_printer
+    Puxico::ChanPrinter::Long.new(@conf.chans)
+  end
+
   def listing(kind)
     Puxico::ChanPrinter::run(@conf.chans, kind)
   end
@@ -25,6 +29,11 @@ class ChanPrinterTest < Test::Unit::TestCase
 
   def test_normal_list
     assert_equal ' 30 430,065   NOISE', normal_printer.lines[29]
+  end
+
+  def test_long_list
+    assert_equal ' 12 160,450   W H   XXX', long_printer.lines[11]
+    assert_equal ' 30 430,065   N L NOISE', long_printer.lines[29]
   end
 
   def test_freqs_run

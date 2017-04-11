@@ -21,7 +21,7 @@ command [:list, :ls] do |c|
   prints = Puxico::ChanPrinter::KINDS
   c.desc 'Output verbosity'
   c.arg_name prints.join('|')
-  c.flag [:p, :print], :must_match => prints, :default_value => :normal
+  c.flag [:p, :print], :must_match => prints, :default_value => :long
 
   c.action do |global_options,options,args|
     content = Puxico::ChanPrinter::run(@config.chans, options[:print])
