@@ -4,7 +4,7 @@ require 'puxico'
 class RadioConfigTest < Test::Unit::TestCase
 
   def setup
-    @chann = chann
+    @chann = chann_file
     @conf = Puxico::RadioConfig.new(@chann)
   end
 
@@ -12,14 +12,10 @@ class RadioConfigTest < Test::Unit::TestCase
     @chann.close
   end
 
-  def chann
-    conf_path = File.join(File.dirname(__FILE__), 'data', 'sample.chann')
-    File.open(conf_path)
-  end
-
   def test_correct_config_reconstruction
     conf = @conf.to_s.lines
-    chann.read.lines.each_with_index do |line, idx|
+    orig_lines = chann_file.read.lines
+    orig_lines.each_with_index do |line, idx|
       assert_equal line, conf[idx], "Line #{idx} should be equal."
     end
   end
