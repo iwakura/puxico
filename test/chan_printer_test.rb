@@ -11,8 +11,8 @@ class ChanPrinterTest < Test::Unit::TestCase
     Puxico::ChanPrinter::Freqs.new(@conf.chans)
   end
 
-  def normal_printer
-    Puxico::ChanPrinter::Normal.new(@conf.chans)
+  def short_printer
+    Puxico::ChanPrinter::Short.new(@conf.chans)
   end
 
   def long_printer
@@ -27,8 +27,8 @@ class ChanPrinterTest < Test::Unit::TestCase
     assert_equal '160,05625', freqs_printer.lines.first
   end
 
-  def test_normal_list
-    assert_equal ' 30 430,065   NOISE', normal_printer.lines[29]
+  def test_short_list
+    assert_equal ' 30 430,065   NOISE', short_printer.lines[29]
   end
 
   def test_long_list
@@ -41,8 +41,8 @@ class ChanPrinterTest < Test::Unit::TestCase
     assert_equal '160,05625', content.lines.first.strip
   end
 
-  def test_normal_run
-    content = listing :normal
+  def test_short_run
+    content = listing :short
     assert_equal '  4 160,25625 NSDAO', content.lines[3].chomp
   end
 

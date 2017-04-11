@@ -1,6 +1,6 @@
 module Puxico
   module ChanPrinter
-    KINDS = [:normal, :long, :freqs]
+    KINDS = [:short, :long, :freqs]
 
     def self.run(chans, kind)
       pcn = kind.to_s.sub(/^\w/){|c| c.upcase }
@@ -32,7 +32,7 @@ module Puxico
       end
     end
 
-    class Normal < Base
+    class Short < Base
       def line(ch, idx)
         '%3d %-9s %5s' % [idx + 1, ch.frequency, ch.clean_title]
       end
