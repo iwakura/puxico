@@ -1,6 +1,6 @@
 module Puxico
   module ChanPrinter
-    KINDS = [:short, :long, :freqs]
+    KINDS = [:short, :long, :freqs, :complete]
 
     def self.run(chans, kind)
       pcn = kind.to_s.sub(/^\w/){|c| c.upcase }
@@ -41,6 +41,12 @@ module Puxico
     class Long < Base
       def line(ch, idx)
         '%3d %-9s %1s %1s %5s' % [idx + 1, ch.frequency, ch.band, ch.power, ch.clean_title]
+      end
+    end
+
+    class Complete < Base
+      def line(ch, idx)
+        '%3d %-9s %-9s %1s %1s %5s' % [idx + 1, ch.frequency, ch.offset, ch.band, ch.power, ch.clean_title]
       end
     end
   end

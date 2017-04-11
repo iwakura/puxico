@@ -59,6 +59,10 @@ module Puxico
         freq.to_num
       end
 
+      def offset
+        settings.offset? ? rep_offset.to_num : ''
+      end
+
       def power
         settings.power? ? 'H' : 'L'
       end
