@@ -15,6 +15,10 @@ desc 'Puxing radio config file in chann format.'
 arg_name 'my_radio.chann'
 flag [:f,:file]
 
+desc 'Result chann file.'
+arg_name 'res.chann'
+flag [:r,:result]
+
 desc 'List defined channels'
 command [:list, :ls] do |c|
 
@@ -29,11 +33,36 @@ command [:list, :ls] do |c|
   end
 end
 
+desc 'Delete channel(s)'
+command [:rm, :del] do |c|
+
+  chann_num = '(?:1[01]\d|12[0-8]|\d\d?)'
+  channs = /\A\s*#{chann_num}(?:\s*-\s*#{chann_num}|(?:\s*,\s*#{chann_num})+)?\s*\Z/
+  c.desc 'Channel number(s)'
+  c.arg_name '1|1,3,5|8-128'
+  c.flag :chann, :must_match => channs, :required => true
+  c.action do |global_options, options, args|
+    if match = options[:chann].match(/(#{chann_num})(?:\s*-\s*(#{chann_num}))/)
+      nums = ((match[1].to_i - 1)..(match[2].to_i - 1)).to_a
+    else
+      nums = options[:chann].scan(/#{chann_num}/).collect {|n| n.to_i - 1 }
+    end
+    @config.delete(nums)
+    @result.puts @config.to_s
+  end
+end
+
 pre do |global,command,options,args|
+  if global[:r]
+    @result = File.open(global[:r], 'w')
+  elsif :rm == command.name
+    raise 'Please provide path to result config file.'
+    false
+  end
   if global[:f] and File.file?(global[:f])
     @config = Puxico::RadioConfig.new(File.open(global[:f]))
   else
-    raise 'Please provide path to a config file.'
+    raise 'Please provide path to input config file.'
     false
   end
 end

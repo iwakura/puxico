@@ -25,4 +25,16 @@ class RadioConfigTest < Test::Unit::TestCase
     assert_equal Array, @conf.chans.class
     assert_equal 128, @conf.chans.size
   end
+
+  def test_channel_deletion
+    assert !@conf.chans.first.undefined?
+    @conf.delete(0)
+    assert @conf.chans.first.undefined?
+  end
+
+  def test_multiple_channels_deletion
+    [0, 1].each {|i| assert !@conf.chans[i].undefined? }
+    @conf.delete([0, 1])
+    [0, 1].each {|i| assert @conf.chans[i].undefined? }
+  end
 end

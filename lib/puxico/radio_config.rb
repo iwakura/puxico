@@ -14,6 +14,10 @@ module Puxico
       [preamble, chans, settings, "\r\n"].flatten.collect(&:to_s).join("\r\n")
     end
 
+    def delete(*chans)
+      chans.flatten.each {|i| @chans[i].undefine! }
+    end
+
   end
 
 end
